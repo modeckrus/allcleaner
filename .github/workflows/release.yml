@@ -43,6 +43,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu
 
+      - name: Install mold linker
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mold clang
+
       - name: Build release
         run: cargo build --release --target ${{ matrix.target }}
 
