@@ -97,6 +97,7 @@ async fn update_system(sudo_password: String) -> Result<()> {
         "apt" => ("apt", vec!["update"]),
         "dnf" => ("dnf", vec!["upgrade", "-y"]),
         "pacman" => ("pacman", vec!["-Syu", "--noconfirm"]),
+        "brew" => ("brew", vec!["update"]),
         _ => bail!("Unsupported package manager"),
     };
 
@@ -133,6 +134,8 @@ fn detect_package_manager() -> Result<&'static str> {
         Ok("dnf")
     } else if Path::new("/usr/bin/pacman").exists() {
         Ok("pacman")
+    } else if Path::new("/usr/local/bin/brew").exists() || Path::new("/opt/homebrew/bin/brew").exists() {
+        Ok("brew")
     } else {
         bail!("No supported package manager found")
     }
