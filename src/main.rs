@@ -289,7 +289,7 @@ async fn update_rust() -> Result<()> {
         .context("Failed to run rustup check")?;
 
     let check_stdout = String::from_utf8_lossy(&check_output.stdout);
-    let has_updates = check_stdout.lines().any(|line| line.contains("Update available"));
+    let has_updates = check_stdout.lines().any(|line| line.contains("update available"));
 
     if !has_updates {
         tracing::info!("Rust is already up to date, skipping");
